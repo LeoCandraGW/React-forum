@@ -49,6 +49,9 @@ function ForumItem({
       onClick={onCommentClick}
       onKeyDown={onCommentPress}
     >
+      <span></span>
+      <span></span>
+      <span></span>
       <div className="talk-item__user-photo">
         {user && user.avatar ? (
           <img src={user.avatar} alt={user.name} />
@@ -97,6 +100,12 @@ function ForumItem({
             </div>
           )}
         </div>
+      </div>
+      <div className="box">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </div>
   );

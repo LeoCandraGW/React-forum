@@ -4,24 +4,29 @@
   box-sizing: border-box;
 }
 :root {
-  --background-dark: #34495e;
-  --foreground-dark: #ecf0f1;
-  --background-light: #ecf0f1;
-  --foreground-light: #2c3e50;
+  --background-color: #34495e;
+  --foreground-color: #ecf0f1;
+}
+
+[data-theme="dark"] {
+  --background-color: #ecf0f1;
+  --foreground-color: #2c3e50;
 }
 
 .body {
   font-family: "Open-Sans", sans-serif;
-  background-color: var(--background-dark);
-  color: var(--foreground-dark);
+  background-color: var(--background-color);
+  color: var(--foreground-color);
+  transition: 0.5s;
 }
 
 .app-container {
-  background-color: var(--background-dark);
-  color: var(--foreground-dark);
+  background-color: var(--background-color);
+  color: var(--foreground-color);
   display: flex;
   flex-direction: row;
   min-height: 100vh;
+  transition: 0.5s;
 }
 
 .notfoundpage {
@@ -57,28 +62,44 @@
   width: 100%;
 }
 
-.talk-input input {
-  margin: 10px;
-  padding: 8px;
-  border: none;
-  border-radius: 5px;
+.talk-input input::placeholder {
+  color: var(--foreground-color);
 }
 
-.talk-input textarea{
+.talk-input .talk-item input {
+  padding: 8px;
+  border: 1px solid var(--foreground-color);
+  background-color: var(--background-color);
+  color: var(--foreground-color);
+  border-radius: 5px;
+  width: 100%;
+  transition: 0.5s;
+}
+
+.talk-input .talk-item textarea{
   font-family: 'Open Sans',sans-serif;
-  background-color: var(--foreground-dark);
-  color: var(--background-dark);
-  margin: 10px;
+  background-color: var(--background-color);
+  color: var(--foreground-color);
   padding: 8px;
   height: 150px;
+  width: 100%;
   border-radius: 5px;
+  transition: 0.5s;
 }
 
-.talk-input button {
-  margin: 10px;
+.talk-input .talk-item textarea::placeholder{
+  color: var(--foreground-color);
+}
+
+.talk-input .talk-item button {
   padding: 8px;
   border-radius: 5px;
+  background-color: var(--foreground-color);
+  color: var(--background-color);
+  width: 100%;
+  border: none;
   cursor: pointer;
+  transition: 0.5s;
 }
 
 .talk-input__char-left{
@@ -91,13 +112,95 @@
 }
 
 .talk-item {
+  margin: 10px 0 10px 0;
   display: flex;
   flex-direction: row;
   align-items: center;
   cursor: pointer;
-  border: 1px solid rgb(243, 243, 243);
-  font-family: 'Open Sans',sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  box-shadow: 0 0 20px var(--foreground-color);
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
 }
+
+.talk-item:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.talk-item:hover:before {
+  left: -50%;
+  transform: skewX(-5deg);
+}
+
+.talk-item .content {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border: 1px solid #f0a591;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 5px 10px rgba(9, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.talk-item span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.talk-item span:nth-child(1) {
+  transform: rotate(0deg);
+}
+
+.talk-item span:nth-child(3) {
+  transform: rotate(180deg);
+}
+
+.talk-item span:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: #3498db;
+  animation: animate 4s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  50% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  50.1% {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+}
+
 
 .talk-item__user-photo img {
   padding: 10px;
@@ -142,50 +245,85 @@
   align-items: center;
   width: 20vw;
   height: 100vh;
-  background-color: var(--background-dark);
+  background-color: var(--background-color);
   padding: 3px;
-  box-shadow: 2px 0 10px var(--foreground-dark);
+  box-shadow: 1px 0 20px var(--foreground-color);
+  transition: 0.5s;
 }
 
 .navigation nav:hover{
-  background-color: var(--foreground-dark);
-  color: var(--background-dark);
+  background-color: var(--foreground-color);
+  color: var(--background-color);
 }
 
 .navigation .active nav{
-  background-color: var(--foreground-dark);
-  color: var(--background-dark);
+  background-color: var(--foreground-color);
+  color: var(--background-color);
 }
 
 .navigation nav {
-  margin-top: 10px;
   padding: 10px;
-  background-color: var(--background-dark);
-  color: var(--foreground-dark);
+  background-color: var(--background-color);;
+  color: var(--foreground-color);
   text-align: center;
   border-radius: 5px;
-  border: 1px solid var(--foreground-dark);
+  border: none;
+  transition: 0.5s;
 }
-.navigation a {
+
+.navigation .talk-item {
+  width: 100%;
+}
+.navigation .talk-item a {
   width: 100%;
   text-decoration: none;
 }
 
 .navigation img {
   border-radius: 50%;
-  width: 50%;
+  width: 75%;
 }
 
-.navigation button {
-  margin: 5px;
-  width: 98%;
-  position: absolute;
+.nav-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   padding: 10px;
-  bottom: 0 ;
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
+  border-bottom: 1px solid var(--foreground-color);
 }
+
+.button-style {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.button-style button {
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: 0.5s;
+}
+
+.theme-button button{
+  width: 100%;
+  background-color: transparent;
+  color: var(--foreground-color);
+  border: none;
+  font-size: 30px;
+}
+
+.signout-button button{
+  width: 100%;
+  background-color: transparent;
+  color: var(--foreground-color);
+  border: none;
+  box-shadow: 10px 0 20px var(--foreground-color);
+}
+
 
 .login-page,
 .register-page {
@@ -199,11 +337,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--background-dark);
-  color: var(--foreground-dark);
+  background-color: var(--background-color);
+  color: var(--foreground-color);
   font-size: 25vw;
   width: 100%;
   height: 100%;
+  transition: 0.5s;
 }
 .login-page__main,
 .register-page__main {
@@ -211,10 +350,31 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: var(--background-light);
-  color: var(--foreground-light);
+  background-color: var(--foreground-color);
+  color: var(--background-color);
   width: 100%;
   height: 100%;
+  transition: 0.5s;
+}
+
+.login-page__main .logintheme button{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  padding: 20px;
+  background-color: var(--background-color);
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--foreground-color);
+  border-radius: 50%;
+  transition: 0.5s;
+}
+
+.login-page__main .logintheme button:hover{
+  background-color: var(--foreground-color);
+  color: var(--background-color);
 }
 
 .login-page__main h2,
@@ -230,6 +390,15 @@
   font-family: "Open Sans", sans-serif;
 }
 
+.login-page__main a,
+.register-page__main a {
+  color: var(--background-color);
+  margin-top: 0.5em;
+  padding: 0 2px;
+  font-family: "Open Sans", sans-serif;
+  transition: 0.5s;
+}
+
 .login-input input,
 .register-input input {
   display: block;
@@ -239,7 +408,7 @@
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
   border-radius: 4px;
-  border: 1px solid var(--foreground-light);
+  border: 1px solid var(--foreground-color);
 }
 
 .login-input button,
@@ -247,14 +416,15 @@
   margin-top: 1em;
   width: 100%;
   padding: 12px 8px;
-  background-color: var(--background-dark);
-  color: var(--foreground-dark);
+  background-color: var(--background-color);
+  color: var(--foreground-color);
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
   font-weight: 600;
   border-radius: 4px;
   border: none;
   cursor: pointer;
+  transition: 0.5s;
 }
 
 @media screen and (max-width: 850px) {
