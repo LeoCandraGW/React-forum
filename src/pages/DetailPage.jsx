@@ -9,7 +9,8 @@ import {
   asyncupvoteComment,
   asyncdownvoteComment,
 } from "../states/threadDetail/action";
-import { asyncAddForum } from "../states/thread/action";
+import { asyncAddForumComment } from "../states/threadDetail/action";
+import ForumDetailCommentList from "../components/ForumDetailCommentList";
 
 function DetailPage() {
   const { id } = useParams();
@@ -22,9 +23,22 @@ function DetailPage() {
     dispatch(asyncReceiveForumDetail(id));
   }, [dispatch]);
 
+  const onReplyForum = (comments) => {
+    dispatch(asyncAddForumComment({ comments, id: id }));
+  };
+
+  const onUpvote = (id) => {
+    dispatch(asyncupvoteComment(id));
+  };
+
+  const onDownvote = (id) => {
+    dispatch(asyncdownvoteComment(id));
+  };
+
   if (!forumDetail) {
     return null;
   }
+
   return (
     <section className="detail-page">
       {forumDetail.parent && (
@@ -34,6 +48,8 @@ function DetailPage() {
         </div>
       )}
       <ForumDetail {...forumDetail} authUser={authUser.id} />
+      <ForumReplyInput replyForum={onReplyForum} />
+      <ForumDetailCommentList comments={forumDetail.comments} upVote={onUpvote} downVote={onDownvote} />
     </section>
   );
 }

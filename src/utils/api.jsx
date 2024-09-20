@@ -171,6 +171,8 @@ const api = (() => {
   }
 
   async function createComment({ id, comments }) {
+    console.log(id, comments)
+    const content = comments
     const response = await _fetchWithAuth(
       `${BASE_URL}/threads/${id}/comments`,
       {
@@ -179,7 +181,7 @@ const api = (() => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          comments,
+          content,
         }),
       }
     );

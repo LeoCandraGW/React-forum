@@ -58,26 +58,23 @@ function asyncAddForum({ title, body }) {
 
 function asyncUpvoteForum(forumId, userId) {
   return async (dispatch) => {
-    dispatch(upvoteForumActionCreator(forumId, userId));
-
+    
     try {
       await api.upVoteThread(forumId);
+      dispatch(upvoteForumActionCreator(forumId, userId));
     } catch (error) {
-        alert(error.message)
-        dispatch(upvoteForumActionCreator(forumId, userId))
+        // alert(error.message)
     }
   };
 }
 
 function asyncDownvoteForum(forumId, userId){
     return async (dispatch) => {
+      try{
+        await api.downVoteThread(forumId)
         dispatch(downvoteForumActionCreator(forumId, userId))
-
-        try{
-            await api.downVoteThread(forumId)
         } catch(error){
-            alert(error.message)
-            dispatch(downvoteForumActionCreator(forumId, userId))
+            // alert(error.message)
         }
     }
 }

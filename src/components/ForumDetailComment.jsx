@@ -4,22 +4,21 @@ import { FaRegThumbsUp, FaThumbsUp, FaRegThumbsDown, FaThumbsDown } from "react-
 import { useNavigate } from "react-router-dom";
 import { postedAt } from "../utils/datePosted";
 
-function ForumItem({
+function ForumDetailComment({
   id,
-  body,
+  content,
   createdAt,
   upVotesBy,
   downVotesBy,
-  user,
-  authUser,
+  owner,
   upVote,
   downVote,
 }) {
   const navigate = useNavigate();
 
-  const isUpVotes = upVotesBy.includes(authUser);
+  const isUpVotes = upVotesBy.includes(owner.id);
 
-  const isDownVotes = downVotesBy.includes(authUser);
+  const isDownVotes = downVotesBy.includes(owner.id);
 
   const onUpVotes = (event) => {
     event.stopPropagation();
@@ -33,30 +32,30 @@ function ForumItem({
     window.location.reload();
   };
 
-  const onCommentClick = () => {
-    navigate(`/forums/${id}`);
-  };
+//   const onCommentClick = () => {
+//     navigate(`/forums/${id}`);
+//   };
 
-  const onCommentPress = (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      navigate(`/comments/${id}`);
-    }
-  };
+//   const onCommentPress = (event) => {
+//     if (event.key === "Enter" || event.key === " ") {
+//       navigate(`/comments/${id}`);
+//     }
+//   };
 
   return (
     <div
       role="button"
       tabIndex={0}
       className="talk-item"
-      onClick={onCommentClick}
-      onKeyDown={onCommentPress}
+    //   onClick={onCommentClick}
+    //   onKeyDown={onCommentPress}
     >
       <span></span>
       <span></span>
       <span></span>
       <div className="talk-item__user-photo">
-        {user && user.avatar ? (
-          <img src={user.avatar} alt={user.name} />
+        {owner && owner.avatar ? (
+          <img src={owner.avatar} alt={owner.name} />
         ) : (
           <p>No Avatar</p>
         )}
@@ -64,13 +63,13 @@ function ForumItem({
       <div className="talk-item__detail">
         <header>
           <div className="talk-item__user-info">
-            <p className="talk-item__user-name">{user?.name}</p>
-            <p className="talk-item__user-id">@{user?.id}</p>
+            <p className="talk-item__user-name">{owner?.name}</p>
+            <p className="talk-item__user-id">@{owner?.id}</p>
           </div>
           <p className="talk-item-created-at">{postedAt(createdAt)}</p>
         </header>
         <article>
-          <p className="talk-item__text">{body}</p>
+          <p className="talk-item__text">{content}</p>
         </article>
         <div className="updownvote">
           {upVote && (
@@ -119,27 +118,27 @@ const userShape = {
   avatar: PropTypes.string.isRequired,
 };
 
-const ForumItemShape = {
+const ForumDetailCommentShape = {
   id: PropTypes.string.isRequired,
-  body: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
   upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
-  user: PropTypes.shape(userShape).isRequired,
-  authUser: PropTypes.string.isRequired,
+  owner: PropTypes.shape(userShape).isRequired,
+  
 };
 
-ForumItem.propTypes = {
-  ...ForumItemShape,
+ForumDetailComment.propTypes = {
+  ...ForumDetailCommentShape,
   upVote: PropTypes.func,
   downVote: PropTypes.func,
 };
 
-ForumItem.defaultProps = {
-  upVote: null,
-  downVote: null,
-};
+// ForumItem.defaultProps = {
+//   upVote: null,
+//   downVote: null,
+// };
 
-export { ForumItemShape };
+export { ForumDetailCommentShape };
 
-export default ForumItem;
+export default ForumDetailComment;

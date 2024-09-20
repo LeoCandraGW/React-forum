@@ -4,7 +4,8 @@ const ActionType = {
     RECEIVE_FORUM_DETAIL: 'RECEIVE_FORUM_DETAIL',
     CLEAR_FORUM_DETAIL: 'CLEAR_FORUM_DETAIL',
     UPVOTE_FORUM_COMMENT: 'UPVOTE_FORUM_COMMENT',
-    DOWNVOTE_FORUM_COMMENT: 'DOWNVOTE_FORUM_COMMENT'
+    DOWNVOTE_FORUM_COMMENT: 'DOWNVOTE_FORUM_COMMENT',
+    ADD_FORUM_COMMENT: 'ADD_FORUM_COMMENT'
 }
 
 function receiveForumDetailActionCreator(forumDetail){
@@ -12,6 +13,16 @@ function receiveForumDetailActionCreator(forumDetail){
         type: ActionType.RECEIVE_FORUM_DETAIL,
         payload:{
             forumDetail
+        }
+    }
+}
+
+function addForumCommentActionCreator(id, comments){
+    return {
+        type: ActionType.ADD_FORUM_COMMENT,
+        payload: {
+            id,
+            comments
         }
     }
 }
@@ -53,6 +64,17 @@ function asyncReceiveForumDetail(forumId){
     }
 }
 
+function asyncAddForumComment({id, comments}){
+    return async(dispatch) => {
+        try {
+            const forumComment = await api.createComment({id, comments})
+            dispatch(addForumCommentActionCreator(forumComment))
+        } catch (error){
+            alert(error.message)
+        }
+    }
+}
+
 function asyncupvoteComment({threadId,commentId}){
     return async (dispatch, getState) => {
         const forumDetail = getState()
@@ -87,5 +109,7 @@ export {
     downvoteCommentActionCreator,
     asyncReceiveForumDetail,
     asyncupvoteComment,
-    asyncdownvoteComment
+    asyncdownvoteComment,
+    addForumCommentActionCreator,
+    asyncAddForumComment
 }

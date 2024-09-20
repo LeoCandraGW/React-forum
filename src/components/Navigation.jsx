@@ -42,12 +42,11 @@ function Navigation({ authUser, signOut }) {
       </div>
 
       {navLinks.map(({ path, label }) => (
-        <div className="talk-item">
+        <div key={path} className="talk-item">
           <span></span>
           <span></span>
           <span></span>
           <Link
-            key={path}
             to={path}
             onClick={() => handleNavClick(path)}
             className={activeSection === path ? "active" : ""}

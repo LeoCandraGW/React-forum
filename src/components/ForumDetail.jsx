@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaRegThumbsUp, FaThumbsUp, FaRegThumbsDown, FaThumbsDown } from "react-icons/fa";
 import { postedAt } from "../utils/datePosted";
 
 function ForumDetail({
   id,
+  title,
   body,
   createdAt,
   upVotesBy,
@@ -27,28 +28,29 @@ function ForumDetail({
         </div>
       </header>
       <article>
+        <h2>{title}</h2>
         <p className="talk-detail__text">{body}</p>
       </article>
       <footer>
         <div className="talk-detail__like">
           <button type="button" aria-label="like" onClick={() => upVoteComment(id)}>
             {isCommentUpVoted ? (
-              <FaHeart style={{ color: "red" }} />
+              <FaThumbsUp style={{ color: "red" }} />
             ) : (
-              <FaRegHeart />
+              <FaRegThumbsUp />
             )}
           </button>
-          <span>{upVotesBy.length} Likes</span>
+          <span>{upVotesBy.length}</span>
         </div>
         <div className="talk-detail__like">
           <button type="button" aria-label="like" onClick={() => downVoteComment(id)}>
             {isCommentDownVoted ? (
-              <FaHeart style={{ color: "red" }} />
+              <FaThumbsDown style={{ color: "red" }} />
             ) : (
-              <FaRegHeart />
+              <FaRegThumbsDown />
             )}
           </button>
-          <span>{downVotesBy.length} Likes</span>
+          <span>{downVotesBy.length}</span>
         </div>
         <p className="talk-detail__created-at">{postedAt(createdAt)}</p>
       </footer>

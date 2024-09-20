@@ -3,28 +3,28 @@ import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 
 function ForumReplyInput({replyForum}){
-    const [text, setText] = React.useState('');
-  const navigate = useNavigate('/');
+    const [comments, setComments] = React.useState('');
+  const navigate = useNavigate();
 
   function replyForumHandler() {
-    if (text.trim()) {
-      replyForum(text);
-      setText('');
+    if (comments.trim()) {
+      replyForum(comments);
+      setComments('');
       navigate('/');
     }
   }
 
   function handleTextChange({ target }) {
     if (target.value.length <= 320) {
-      setText(target.value);
+      setComments(target.value);
     }
   }
 
   return (
     <div className="talk-reply-input">
-      <textarea type="text" placeholder="Talk your reply" value={text} onChange={handleTextChange} />
+      <textarea type="text" placeholder="Talk your reply" value={comments} onChange={handleTextChange} />
       <p className="talk-reply-input__char-left">
-        <strong>{text.length}</strong>
+        <strong>{comments.length}</strong>
         /320
       </p>
       <button type="submit" onClick={replyForumHandler}>Reply</button>

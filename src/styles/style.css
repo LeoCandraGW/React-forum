@@ -53,6 +53,111 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
+  width: 75vw;
+}
+
+.talk-reply-input {
+  margin-top: -8vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Open Sans', sans-serif;
+  width: 100%;
+}
+
+.talk-reply-input textarea{
+  padding: 10px;
+  height: 50px;
+  background-color: var(--foreground-color);
+  color: var(--background-color);
+  border-radius: 5px;
+  transition: 0.5s;
+}
+
+.talk-reply-input textarea::placeholder{
+  color: var(--background-color);
+}
+
+.talk-reply-input p {
+  align-self: flex-end;
+}
+
+.talk-reply-input button {
+  padding: 8px;
+  border-radius: 5px;
+  background-color: var(--foreground-color);
+  color: var(--background-color);
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.talk-detail {
+  margin: 10vh;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: 'Open Sans', sans-serif;
+  width: 100%;
+}
+
+.talk-detail header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid var(--foreground-color);
+}
+
+.talk-detail article {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-bottom: 1px solid var(--foreground-color);
+}
+.talk-detail footer {
+  padding: 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  border-bottom: 1px solid var(--foreground-color);
+}
+
+.talk-detail__like button{
+  padding: 5px;
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  color: var(--foreground-color);
+  cursor: pointer;
+}
+
+.talk-detail__like button:hover{
+  color: #e74c3c;
+}
+
+.talk-detail__created-at {
+  margin: 10px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.talk-detail img {
+  margin: 10px;
+  border-radius: 50%;
+}
+
+.talk-detail__user-id {
+  font-size: 12px;
+}
+
+.talk-detail__text {
+  padding: 10px;
 }
 
 .talk-input {
@@ -212,6 +317,13 @@
   padding: 10px;
 }
 
+.talk-item__detail article{
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word; 
+  text-align: justify;
+}
+
 .talk-item-created-at {
   padding: 10px;
   text-align: right;
@@ -224,9 +336,14 @@
 
 .updownvote button {
   margin-top: 10px;
-  color: white;
+  color: var(--foreground-color);
   background-color: transparent;
   border: none;
+  cursor: pointer;
+}
+
+.updownvote button:hover{
+  color: #e74c3c;
 }
 
 .updownvote p {
@@ -282,6 +399,7 @@
 .navigation img {
   border-radius: 50%;
   width: 75%;
+  box-shadow: 1px 0 20px var(--foreground-color);
 }
 
 .nav-image {
